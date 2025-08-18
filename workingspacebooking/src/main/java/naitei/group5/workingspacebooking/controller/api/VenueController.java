@@ -22,7 +22,7 @@ public class VenueController {
     public ResponseEntity<VenueResponseDto> createVenueRequest(
             @Valid @RequestBody CreateVenueRequestDto requestDto) {
         
-        VenueResponseDto responseDto = venueService.createVenueRequest(requestDto.getOwnerId(), requestDto);
+        VenueResponseDto responseDto = venueService.createVenueRequest(requestDto.ownerId(), requestDto);
         
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }

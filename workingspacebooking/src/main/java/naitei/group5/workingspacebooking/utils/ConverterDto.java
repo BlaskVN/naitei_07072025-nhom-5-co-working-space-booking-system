@@ -10,11 +10,11 @@ public class ConverterDto {
 
     public static Venue toVenueEntity(CreateVenueRequestDto requestDto, User owner, VenueStyle venueStyle) {
         return Venue.builder()
-                .name(requestDto.getName())
-                .description(requestDto.getDescription())
-                .capacity(requestDto.getCapacity())
-                .location(requestDto.getLocation())
-                .image(requestDto.getImage())
+                .name(requestDto.name())
+                .description(requestDto.description())
+                .capacity(requestDto.capacity())
+                .location(requestDto.location())
+                .image(requestDto.image())
                 .verified(false) 
                 .owner(owner)
                 .venueStyle(venueStyle)
@@ -22,25 +22,25 @@ public class ConverterDto {
     }
 
     public static VenueResponseDto toVenueResponseDto(Venue venue) {
-        return VenueResponseDto.builder()
-                .id(venue.getId())
-                .name(venue.getName())
-                .description(venue.getDescription())
-                .capacity(venue.getCapacity())
-                .location(venue.getLocation())
-                .image(venue.getImage())
-                .verified(venue.getVerified())
-                .venueStyleName(venue.getVenueStyle() != null ? venue.getVenueStyle().getName() : null)
-                .ownerName(venue.getOwner() != null ? venue.getOwner().getName() : null)
-                .build();
+        return new VenueResponseDto(
+                venue.getId(),
+                venue.getName(),
+                venue.getDescription(),
+                venue.getCapacity(),
+                venue.getLocation(),
+                venue.getImage(),
+                venue.getVerified(),
+                venue.getVenueStyle() != null ? venue.getVenueStyle().getName() : null,
+                venue.getOwner() != null ? venue.getOwner().getName() : null
+        );
     }
 
     public static void updateVenueFromDto(Venue venue, CreateVenueRequestDto requestDto, VenueStyle venueStyle) {
-        venue.setName(requestDto.getName());
-        venue.setDescription(requestDto.getDescription());
-        venue.setCapacity(requestDto.getCapacity());
-        venue.setLocation(requestDto.getLocation());
-        venue.setImage(requestDto.getImage());
+        venue.setName(requestDto.name());
+        venue.setDescription(requestDto.description());
+        venue.setCapacity(requestDto.capacity());
+        venue.setLocation(requestDto.location());
+        venue.setImage(requestDto.image());
         
         if (venueStyle != null) {
             venue.setVenueStyle(venueStyle);

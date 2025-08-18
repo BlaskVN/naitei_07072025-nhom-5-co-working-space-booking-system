@@ -40,9 +40,9 @@ public class VenueServiceImpl implements VenueService {
             throw new IllegalArgumentException("User does not have owner permission");
         }
 
-        VenueStyle venueStyle = venueStyleRepository.findById(requestDto.getVenueStyleId())
+        VenueStyle venueStyle = venueStyleRepository.findById(requestDto.venueStyleId())
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Venue style not found with ID: " + requestDto.getVenueStyleId()));
+                        "Venue style not found with ID: " + requestDto.venueStyleId()));
 
         Venue venue = ConverterDto.toVenueEntity(requestDto, owner, venueStyle);
 
