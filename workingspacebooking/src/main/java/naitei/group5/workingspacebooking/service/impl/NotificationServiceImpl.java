@@ -2,7 +2,6 @@ package naitei.group5.workingspacebooking.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import naitei.group5.workingspacebooking.constant.NotificationType;
 import naitei.group5.workingspacebooking.dto.request.CreateSystemNotificationRequest;
@@ -12,10 +11,8 @@ import naitei.group5.workingspacebooking.repository.UserRepository;
 import naitei.group5.workingspacebooking.service.EmailService;
 import naitei.group5.workingspacebooking.service.NotificationService;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -24,17 +21,16 @@ public class NotificationServiceImpl implements NotificationService {
     
     private final UserRepository userRepository;
     private final EmailService emailService;
-    private final MessageSource messageSource;
     
     @Override
     public SendResult sendSystemNotification(CreateSystemNotificationRequest req, Integer adminId) {
         // Lấy danh sách users theo targetRoles (tránh N+1, chỉ load các trường cần thiết)
         List<User> recipients = userRepository.findByRoleIn(req.targetRoles());
         
-        // Xây dựng subject theo i18n key phụ thuộc NotificationType
+        // Xây dựng subject theo loại thông báo
         String subject = getSubjectByType(req.type());
         
-        // Body email dùng mẫu chung i18n
+        // Body email
         String emailBody = getEmailBody(req.title(), req.content());
         
         int totalRecipients = recipients.size();
@@ -59,17 +55,14 @@ public class NotificationServiceImpl implements NotificationService {
     }
     
     private String getSubjectByType(NotificationType type) {
-        Locale locale = Locale.forLanguageTag("vi");
         return switch (type) {
-            case EMERGENCY -> messageSource.getMessage("email.subject.emergency", null, locale);
-            case MAINTENANCE -> messageSource.getMessage("email.subject.maintenance", null, locale);
-            case POLICY_UPDATE -> messageSource.getMessage("email.subject.policyUpdate", null, locale);
+            case EMERGENCY -> "[Khẩn cấp] Thông báo hệ thống";
+            case MAINTENANCE -> "[Bảo trì] Thông báo hệ thống";
+            case POLICY_UPDATE -> "[Cập nhật chính sách] Thông báo hệ thống";
         };
     }
     
     private String getEmailBody(String title, String content) {
-        Locale locale = Locale.forLanguageTag("vi");
-        String template = messageSource.getMessage("email.body.systemNotification", null, locale);
-        return MessageFormat.format(template, title, content);
+        return title + "\n\n" + content;
     }
 }

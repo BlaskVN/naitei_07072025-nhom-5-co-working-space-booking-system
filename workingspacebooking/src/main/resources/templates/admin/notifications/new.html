@@ -2,37 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{admin.notification.page.title}">Gửi thông báo hệ thống</title>
+    <title>Gửi thông báo hệ thống</title>
 </head>
 <body>
     <div th:replace="layouts/admin_layout :: layout(~{::section})">
         <section>
-            <h1 th:text="#{admin.notification.page.title}">Gửi thông báo hệ thống</h1>
+            <h1>Gửi thông báo hệ thống</h1>
             
             <form th:action="@{/admin/notifications}" th:object="${notificationRequest}" method="post">
                 
                 <!-- Tiêu đề -->
                 <div>
-                    <label for="title" th:text="#{admin.notification.form.title}">Tiêu đề</label>
+                    <label for="title">Tiêu đề</label>
                     <input type="text" id="title" th:field="*{title}" />
                     <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></div>
                 </div>
                 
                 <!-- Nội dung -->
                 <div>
-                    <label for="content" th:text="#{admin.notification.form.content}">Nội dung</label>
+                    <label for="content">Nội dung</label>
                     <textarea id="content" th:field="*{content}" rows="5" cols="50"></textarea>
                     <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error"></div>
                 </div>
                 
                 <!-- Loại thông báo -->
                 <div>
-                    <label for="type" th:text="#{admin.notification.form.type}">Loại thông báo</label>
+                    <label for="type">Loại thông báo</label>
                     <select id="type" th:field="*{type}">
                         <option value="">-- Chọn loại --</option>
                         <option th:each="type : ${notificationTypes}" 
                                 th:value="${type}" 
-                                th:text="#{${'notificationType.' + type}}">
+                                th:text="${type == 'EMERGENCY' ? 'Khẩn cấp' : 
+                                         type == 'MAINTENANCE' ? 'Bảo trì' : 
+                                         type == 'POLICY_UPDATE' ? 'Cập nhật chính sách' : type}">
                         </option>
                     </select>
                     <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="error"></div>
@@ -40,14 +42,17 @@
                 
                 <!-- Vai trò người nhận -->
                 <div>
-                    <label th:text="#{admin.notification.form.targetRoles}">Gửi tới vai trò</label>
+                    <label>Gửi tới vai trò</label>
                     <div th:each="role : ${userRoles}">
                         <input type="checkbox" 
                                th:id="'role_' + ${role}" 
                                th:field="*{targetRoles}" 
                                th:value="${role}" />
                         <label th:for="'role_' + ${role}" 
-                               th:text="#{${'userRole.' + role}}">
+                               th:text="${role == 'admin' ? 'Quản trị viên' : 
+                                        role == 'renter' ? 'Người thuê' : 
+                                        role == 'owner' ? 'Chủ sở hữu' : 
+                                        role == 'pending_owner' ? 'Chủ sở hữu chờ duyệt' : role}">
                         </label>
                     </div>
                     <div th:if="${#fields.hasErrors('targetRoles')}" th:errors="*{targetRoles}" class="error"></div>
@@ -55,7 +60,7 @@
                 
                 <!-- Nút gửi -->
                 <div>
-                    <button type="submit" th:text="#{admin.notification.form.submit}">Gửi ngay</button>
+                    <button type="submit">Gửi ngay</button>
                 </div>
             </form>
         </section>

@@ -33,9 +33,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String header = req.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = null;
+        
         if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
-
+            token = header.substring(7);
+        } else {
+            // Fallback: đọc token từ cookie ACCESS_TOKEN
+            token = resolveFromCookie(req, "ACCESS_TOKEN");
+        }
+        
+        if (token != null) {
             try {
                 var claims = jwt.parse(token).getBody();
                 Integer sid = (Integer) claims.get("sid");
@@ -56,5 +63,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         chain.doFilter(req, res);
+    }
+    
+    private String resolveFromCookie(HttpServletRequest request, String cookieName) {
+        var cookies = request.getCookies();
+        if (cookies == null) return null;
+        for (var cookie : cookies) {
+            if (cookieName.equals(cookie.getName())) {
+                return cookie.getValue();
+            }
+        }
+        return null;
     }
 }

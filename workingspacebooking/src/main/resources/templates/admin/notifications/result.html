@@ -2,28 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{admin.notification.result.title}">Kết quả gửi thông báo</title>
+    <title>Kết quả gửi thông báo</title>
 </head>
 <body>
     <div th:replace="layouts/admin_layout :: layout(~{::section})">
         <section>
-            <h1 th:text="#{admin.notification.result.title}">Kết quả gửi thông báo</h1>
+            <h1>Kết quả gửi thông báo</h1>
             
             <div>
-                <p th:text="#{admin.notification.result.total(${result.totalRecipients})}">
-                    Tổng số người nhận: 0
-                </p>
-                <p th:text="#{admin.notification.result.success(${result.successCount})}">
-                    Gửi thành công: 0
-                </p>
-                <p th:text="#{admin.notification.result.failed(${result.failedCount})}">
-                    Gửi thất bại: 0
-                </p>
+                <p>Tổng số người nhận: <span th:text="${result.totalRecipients}">0</span></p>
+                <p>Gửi thành công: <span th:text="${result.successCount}">0</span></p>
+                <p>Gửi thất bại: <span th:text="${result.failedCount}">0</span></p>
             </div>
             
             <!-- Danh sách email thất bại -->
             <div th:if="${result.failedCount > 0}">
-                <h3 th:text="#{admin.notification.result.failed.list}">Danh sách email thất bại</h3>
+                <h3>Danh sách email thất bại</h3>
                 <ul>
                     <li th:each="email : ${result.failedEmails}" th:text="${email}"></li>
                 </ul>
@@ -31,10 +25,7 @@
             
             <!-- Nút tạo thông báo khác -->
             <div>
-                <a th:href="@{/admin/notifications/new}" 
-                   th:text="#{admin.notification.result.back}">
-                    Tạo thông báo khác
-                </a>
+                <a th:href="@{/admin/notifications/new}" class="btn btn-primary">Tạo thông báo khác</a>
             </div>
         </section>
     </div>

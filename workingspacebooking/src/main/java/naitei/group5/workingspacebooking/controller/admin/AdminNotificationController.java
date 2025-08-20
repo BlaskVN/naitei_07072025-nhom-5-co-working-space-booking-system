@@ -2,7 +2,6 @@ package naitei.group5.workingspacebooking.controller.admin;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,9 +14,8 @@ import naitei.group5.workingspacebooking.service.NotificationService;
 
 @Controller
 @RequestMapping("/admin/notifications")
-@PreAuthorize("hasRole('ADMIN')")
 @RequiredArgsConstructor
-public class AdminNotificationController {
+public class AdminNotificationController extends BaseAdminController {
     
     private final NotificationService notificationService;
     

@@ -9,16 +9,16 @@ import naitei.group5.workingspacebooking.entity.enums.UserRole;
 import java.util.Set;
 
 public record CreateSystemNotificationRequest(
-    @NotBlank(message = "{validation.notification.title.required}")
+    @NotBlank(message = "Vui lòng nhập tiêu đề.")
     String title,
     
-    @NotBlank(message = "{validation.notification.content.required}")
+    @NotBlank(message = "Vui lòng nhập nội dung.")
     String content,
     
-    @NotNull(message = "{validation.notification.type.required}")
+    @NotNull(message = "Vui lòng chọn loại thông báo.")
     NotificationType type,
     
-    @NotEmpty(message = "{validation.notification.targetRoles.required}")
+    @NotEmpty(message = "Vui lòng chọn ít nhất một vai trò.")
     Set<UserRole> targetRoles
 ) {
 }

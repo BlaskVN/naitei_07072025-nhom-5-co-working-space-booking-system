@@ -18,4 +18,6 @@ public class Endpoint {
     // từ task 91337
     public static final String RENTER_VENUES = "/api/venues";
     public static final String RENTER_VENUES_SUB = "/api/venues/**";
+
+    public static final String ADMIN_DASHBOARD = "/admin/dashboard";
 }
