@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{error.404.title}">Trang không tồn tại</title>
+    <link rel="stylesheet" th:href="@{/css/admin-login.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin-error.css}" />
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-card">
+            <div class="not-found-icon">🔍</div>
+            <div class="error-code code-404">404</div>
+            <h1 class="error-title" th:text="#{error.404.title}">Trang không tồn tại</h1>
+            <p class="error-message" th:text="#{error.404.message}">
+                Trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển. Vui lòng kiểm tra lại URL hoặc về trang chủ.
+            </p>
+            
+            <div class="btn-group">
+                <a th:href="@{/admin/dashboard}" class="btn btn-primary" th:text="#{error.back.dashboard}">
+                    Về trang chủ Admin
+                </a>
+                <button onclick="history.back()" class="btn btn-secondary" th:text="#{error.back.previous}">
+                    Quay lại trang trước
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

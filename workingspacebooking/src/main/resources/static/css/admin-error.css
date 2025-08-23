@@ -1,0 +1,222 @@
+/* Error Pages Styles */
+/* Common error container styles */
+.error-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--bg1), var(--bg2));
+}
+
+.error-card {
+    background: white;
+    padding: 3rem;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Error code styling */
+.error-code {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.error-code.code-400 {
+    color: var(--bg1);
+}
+
+.error-code.code-401 {
+    color: #f59e0b;
+}
+
+.error-code.code-403 {
+    color: #dc2626;
+}
+
+.error-code.code-404 {
+    color: #6366f1;
+}
+
+.error-code.code-500 {
+    color: #ef4444;
+}
+
+.error-code.code-default {
+    color: #6366f1;
+}
+
+/* Error content */
+.error-title {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    color: var(--text-label);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* Icons */
+.error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.login-icon {
+    font-size: 3rem;
+    color: #f59e0b;
+    margin-bottom: 1rem;
+}
+
+.forbidden-icon {
+    font-size: 3rem;
+    color: #dc2626;
+    margin-bottom: 1rem;
+}
+
+.not-found-icon {
+    font-size: 3rem;
+    color: #6366f1;
+    margin-bottom: 1rem;
+}
+
+.server-error-icon {
+    font-size: 3rem;
+    color: #ef4444;
+    margin-bottom: 1rem;
+}
+
+/* Button styles */
+.btn-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--bg1);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--bg1-hover);
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+    color: var(--text-main);
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.btn-warning {
+    background: #f59e0b;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #d97706;
+}
+
+/* Error details */
+.error-details {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: left;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+/* Non-admin error pages */
+.general-error-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f8fafc;
+    color: #334155;
+    text-align: center;
+    padding: 2rem;
+}
+
+.general-error-container .error-container {
+    max-width: 500px;
+    width: 100%;
+    background: transparent;
+    padding: 0;
+}
+
+.general-error-container .error-code {
+    font-size: 6rem;
+    font-weight: bold;
+    color: #6366f1;
+    margin-bottom: 1rem;
+}
+
+.general-error-container .error-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.general-error-container .error-message {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #64748b;
+}
+
+.general-error-container .error-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.general-error-container .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #6366f1;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin: 0 0.5rem;
+}
+
+.general-error-container .btn:hover {
+    background: #4f46e5;
+}
+
+.general-error-container .btn-secondary {
+    background: #64748b;
+}
+
+.general-error-container .btn-secondary:hover {
+    background: #475569;
+}

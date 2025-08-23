@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{error.403.title}">Không có quyền truy cập</title>
+    <link rel="stylesheet" th:href="@{/css/admin-login.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin-error.css}" />
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-card">
+            <div class="forbidden-icon">⛔</div>
+            <div class="error-code code-403">403</div>
+            <h1 class="error-title" th:text="#{error.403.title}">Không có quyền truy cập</h1>
+            <p class="error-message" th:text="#{error.403.message}">
+                Bạn không có quyền truy cập trang này. Vui lòng liên hệ quản trị viên nếu bạn cho rằng đây là lỗi.
+            </p>
+            
+            <div class="btn-group">
+                <a th:href="@{/admin/login}" class="btn btn-primary" th:text="#{error.login.different}">
+                    Đăng nhập tài khoản khác
+                </a>
+                <button onclick="history.back()" class="btn btn-secondary" th:text="#{error.back.previous}">
+                    Quay lại trang trước
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{error.default.title}">Có lỗi xảy ra</title>
+    <link rel="stylesheet" th:href="@{/css/admin-login.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin-error.css}" />
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-card">
+            <div class="error-icon">🚫</div>
+            <div class="error-code code-default" th:text="${status ?: ''}"></div>
+            <h1 class="error-title" th:text="#{error.default.title}">Có lỗi xảy ra</h1>
+            <p class="error-message" th:text="#{error.default.message}">
+                Hệ thống đang gặp vấn đề. Vui lòng thử lại sau hoặc liên hệ quản trị viên.
+            </p>
+            
+            <!-- Chi tiết lỗi nếu có -->
+            <div th:if="${error != null}" class="error-details">
+                <strong>Chi tiết lỗi:</strong>
+                <div th:text="${error}"></div>
+                <div th:if="${status != null}">
+                    <strong>Mã lỗi:</strong> 
+                    <span th:text="${status}"></span>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <a th:href="@{/admin/dashboard}" class="btn btn-primary" th:text="#{error.back.dashboard}">
+                    Về trang chủ Admin
+                </a>
+                <button onclick="location.reload()" class="btn btn-secondary" th:text="#{error.reload.page}">
+                    Tải lại trang
+                </button>
+                <button onclick="history.back()" class="btn btn-secondary" th:text="#{error.back.previous}">
+                    Quay lại trang trước
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

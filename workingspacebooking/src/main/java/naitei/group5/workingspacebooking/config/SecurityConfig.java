@@ -44,6 +44,10 @@ public class SecurityConfig {
                                 "/", "/admin/login",
                                 // Static resources
                                 "/css/**", "/js/**", "/images/**", "/static/**",
+                                // Error pages
+                                "/error", "/admin/error/**",
+                                // Admin error test routes (dev only)
+                                "/admin/test-error/**",
                                 // Existing API auth endpoints
                                 AUTH_LOGIN,
                                 AUTH_REFRESH,
@@ -60,6 +64,24 @@ public class SecurityConfig {
                         .requestMatchers(OWNER_ROUTES).hasRole("OWNER")
                         // Tất cả request còn lại phải login
                         .anyRequest().authenticated()
+                )
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            // Xử lý khi chưa đăng nhập
+                            if (request.getRequestURI().startsWith("/admin")) {
+                                response.sendRedirect("/admin/login");
+                            } else {
+                                response.sendError(401, "Unauthorized");
+                            }
+                        })
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            // Xử lý khi không có quyền
+                            if (request.getRequestURI().startsWith("/admin")) {
+                                response.sendRedirect("/admin/error/403");
+                            } else {
+                                response.sendError(403, "Access Denied");
+                            }
+                        })
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{error.500.title}">Lỗi hệ thống</title>
+    <link rel="stylesheet" th:href="@{/css/admin-login.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin-error.css}" />
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-card">
+            <div class="server-error-icon">🔧</div>
+            <div class="error-code code-500">500</div>
+            <h1 class="error-title" th:text="#{error.500.title}">Lỗi hệ thống</h1>
+            <p class="error-message" th:text="#{error.500.message}">
+                Đã có lỗi xảy ra trong hệ thống. Chúng tôi đang khắc phục sự cố. Vui lòng thử lại sau hoặc liên hệ hỗ trợ kỹ thuật.
+            </p>
+            
+            <!-- Chi tiết lỗi (chỉ hiển thị ở môi trường dev) -->
+            <div th:if="${error != null}" class="error-details">
+                <strong th:text="#{error.details.title}">Chi tiết lỗi:</strong>
+                <div th:text="${error}"></div>
+                <div th:if="${timestamp != null}">
+                    <strong th:text="#{error.timestamp}">Thời gian:</strong> 
+                    <span th:text="${timestamp}"></span>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <a th:href="@{/admin/dashboard}" class="btn btn-primary" th:text="#{error.back.dashboard}">
+                    Về trang chủ Admin
+                </a>
+                <button onclick="location.reload()" class="btn btn-warning" th:text="#{error.reload.page}">
+                    Tải lại trang
+                </button>
+                <button onclick="history.back()" class="btn btn-secondary" th:text="#{error.back.previous}">
+                    Quay lại trang trước
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

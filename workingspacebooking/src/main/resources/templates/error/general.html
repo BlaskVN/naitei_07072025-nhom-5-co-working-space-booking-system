@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Có lỗi xảy ra</title>
+    <link rel="stylesheet" th:href="@{/css/admin-error.css}" />
+</head>
+<body class="general-error-container">
+    <div class="error-container">
+        <div class="error-icon">⚠️</div>
+        <h1 class="error-title">Có lỗi xảy ra</h1>
+        <p class="error-message">
+            Đã có lỗi xảy ra trong quá trình xử lý yêu cầu của bạn. 
+            Vui lòng thử lại sau hoặc liên hệ hỗ trợ kỹ thuật.
+        </p>
+        <div>
+            <a href="/" class="btn">Về trang chủ</a>
+            <button onclick="history.back()" class="btn btn-secondary">Quay lại</button>
+        </div>
+    </div>
+</body>
+</html>

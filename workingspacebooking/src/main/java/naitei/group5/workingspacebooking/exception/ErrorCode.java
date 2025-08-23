@@ -53,6 +53,11 @@ public enum ErrorCode {
     // TIME
     INVALID_TIME_RANGE(HttpStatus.BAD_REQUEST, "startTime must be <= endTime"),
 
+    // AUTH & SECURITY
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "Authentication required"),
+    FORBIDDEN(HttpStatus.FORBIDDEN, "Access denied"),
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "Bad request"),
+
     // SYSTEM
     INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
 
