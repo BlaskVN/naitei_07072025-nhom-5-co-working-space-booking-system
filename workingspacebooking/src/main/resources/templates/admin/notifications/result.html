@@ -79,11 +79,11 @@
                                 </td>
                                 <td>
                                     <span th:if="${emailResult.success()}" class="badge bg-success">
-                                        <i class="fas fa-check"></i> Thành công
+                                        <i class="fas fa-check"></i> <span th:text="#{notification.result.status.success}">Success</span>
                                     </span>
                                     <span th:if="${!emailResult.success()}" class="badge bg-danger" 
                                           th:title="${emailResult.status()}">
-                                        <i class="fas fa-times"></i> Thất bại
+                                        <i class="fas fa-times"></i> <span th:text="#{notification.result.status.failed(${emailResult.status()})}">Failed</span>
                                     </span>
                                 </td>
                             </tr>
@@ -93,7 +93,7 @@
                 <div th:if="${result.emailResults().size() > 50}" class="mt-2">
                     <small class="text-muted">
                         <i class="fas fa-info-circle"></i>
-                        Hiển thị tất cả <span th:text="${result.emailResults().size()}">0</span> người nhận
+                        <span th:text="#{notification.result.showing.all(${result.emailResults().size()})}">Showing all recipients</span>
                     </small>
                 </div>
             </div>

@@ -2,22 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Danh sách sản phẩm</title>
+    <title th:text="#{product.list.title}">Danh sách sản phẩm</title>
 </head>
 
 <body>
     <!-- Sử dụng layout admin -->
-    <div th:replace="layouts/admin_layout :: layout(~{::section})">
+    <div th:replace="~{layouts/admin_layout :: layout(~{::section})}">
         <section>
-            <h2>Danh sách sản phẩm</h2>
+            <h2 th:text="#{product.list.title}">Danh sách sản phẩm</h2>
             <!-- Ghi chú: Đây là bảng liệt kê sản phẩm -->
             <table border="1" cellpadding="5" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Tên sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Thao tác</th>
+                        <th th:text="#{product.table.id}">ID</th>
+                        <th th:text="#{product.table.name}">Tên sản phẩm</th>
+                        <th th:text="#{product.table.price}">Giá</th>
+                        <th th:text="#{product.table.actions}">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,7 +27,7 @@
                         <td>Sản phẩm A</td>
                         <td>100.000</td>
                         <td>
-                            <a href="#">Sửa</a> | <a href="#">Xoá</a>
+                            <a href="#" th:text="#{common.edit}">Sửa</a> | <a href="#" th:text="#{common.delete}">Xoá</a>
                         </td>
                     </tr>
                 </tbody>

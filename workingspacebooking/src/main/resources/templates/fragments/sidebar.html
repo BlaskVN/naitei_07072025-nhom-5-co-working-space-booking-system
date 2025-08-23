@@ -1,31 +1,35 @@
 <!-- templates/fragments/sidebar.html -->
 <div th:fragment="sidebarFragment" class="sidebar flex-column p-3">
-    <h4 class="text-white">Admin Dashboard</h4>
+    <h4 class="text-white" th:text="#{sidebar.title}">Admin Dashboard</h4>
     <hr class="text-secondary">
 
     <div class="d-grid gap-2">
-        <a class="btn btn-outline-light" th:href="@{/admin/dashboard}"
-           th:classappend="${currentUri == '/admin/dashboard'} ? ' active' : ''">
+        <a class="btn btn-outline-light sidebar-nav-item" th:href="@{/admin/dashboard}"
+           data-nav="dashboard"
+           th:text="#{menu.dashboard}">
             Dashboard
         </a>
 
-        <a class="btn btn-outline-light" th:href="@{/admin/users}"
-           th:classappend="${currentUri == '/admin/users/user-list'} ? ' active' : ''">
-            Quản lí người dùng
+        <a class="btn btn-outline-light sidebar-nav-item" th:href="@{/admin/notifications/new}"
+           data-nav="notifications"
+           th:text="#{menu.create.notification}">
+            Create System Notification
         </a>
 
-        <a class="btn btn-outline-light" th:href="@{/admin/notifications/new}"
-           th:classappend="${currentUri == '/admin/notifications/new'} ? ' active' : ''">
-            Tạo báo cáo hệ thống
+        <a class="btn btn-outline-light sidebar-nav-item" th:href="@{/admin/users}"
+           data-nav="users"
+           th:text="#{menu.user.management}">
+            User Management
         </a>
 
-        <a class="btn btn-outline-light" th:href="@{/admin/venues}"
-           th:classappend="${currentUri == '/admin/venues'} ? ' active' : ''">
-            Quản lý co-working space
+        <a class="btn btn-outline-light sidebar-nav-item" th:href="@{/admin/venues}"
+           data-nav="venues"
+           th:text="#{menu.venue.management}">
+            Co-working Space Management
         </a>
 
         <form th:action="@{/admin/logout}" method="post">
-            <button type="submit" class="btn btn-outline-danger w-100">Đăng xuất</button>
+            <button type="submit" class="btn btn-outline-danger w-100" th:text="#{menu.logout}">Logout</button>
         </form>
     </div>
 </div>

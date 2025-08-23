@@ -6,9 +6,9 @@
 <head>
     <meta charset="UTF-8">
 </head>
-<body th:with="pageTitle='Quản lý người dùng'">
+<body th:with="pageTitle=#{user.management.title}">
 <div layout:fragment="content">
-    <h2>Quản lý người dùng</h2>
+    <h2 th:text="#{user.list.title}">Quản lý người dùng</h2>
     <hr class="text-secondary">
 
     <!-- Hiển thị message -->
@@ -18,46 +18,62 @@
     <!-- Filter form -->
     <form method="get" class="row g-3 mb-3">
         <div class="col-auto">
-            <label for="role" class="form-label">Lọc theo vai trò:</label>
+            <label for="role" class="form-label" th:text="#{user.filter.role.label}">Filter by role:</label>
             <select id="role" name="role" class="form-select">
-                <option value="" th:selected="${selectedRole == null}">Tất cả vai trò</option>
+                <option value="" th:selected="${selectedRole == null}" th:text="#{user.filter.all.roles}">All roles</option>
                 <option th:each="r : ${roles}"
                         th:value="${r}"
-                        th:text="${r.name()}"
+                        th:text="${r == T(naitei.group5.workingspacebooking.entity.enums.UserRole).admin} ? #{user.role.admin} : 
+                                 (${r == T(naitei.group5.workingspacebooking.entity.enums.UserRole).renter} ? #{user.role.renter} : 
+                                 (${r == T(naitei.group5.workingspacebooking.entity.enums.UserRole).owner} ? #{user.role.owner} : #{user.role.pending.owner}))"
                         th:selected="${selectedRole == r}">
                 </option>
             </select>
         </div>
         <div class="col-auto d-flex align-items-end">
-            <button type="submit" class="btn btn-primary">Lọc</button>
+            <button type="submit" class="btn btn-primary" th:text="#{user.filter.button}">Filter</button>
         </div>
     </form>
 
     <table class="table table-striped table-light text-dark align-middle">
         <thead>
         <tr>
-            <th>#</th>
-            <th>Tên</th>
-            <th>Email</th>
-            <th>Vai trò</th>
-            <th>Hành động</th>
+            <th th:text="#{user.table.index}">#</th>
+            <th th:text="#{user.table.name}">Name</th>
+            <th th:text="#{user.table.email}">Email</th>
+            <th th:text="#{user.table.role}">Role</th>
+            <th th:text="#{user.table.actions}">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user, iterStat : ${users}">
             <td th:text="${iterStat.index + 1}">1</td>
-            <td th:text="${user.name}">Nguyễn Văn A</td>
-            <td th:text="${user.email}">a@example.com</td>
-            <td th:text="${user.role}">ADMIN</td>
+            <td th:text="${user.name}">User Name</td>
+            <td th:text="${user.email}">user@example.com</td>
+            <td>
+                <span class="badge" 
+                      th:classappend="${user.role == T(naitei.group5.workingspacebooking.entity.enums.UserRole).admin} ? 'bg-danger' : 
+                                     (${user.role == T(naitei.group5.workingspacebooking.entity.enums.UserRole).owner} ? 'bg-primary' : 
+                                     (${user.role == T(naitei.group5.workingspacebooking.entity.enums.UserRole).pending_owner} ? 'bg-warning text-dark' : 'bg-secondary'))"
+                      th:text="${user.role == T(naitei.group5.workingspacebooking.entity.enums.UserRole).admin} ? #{user.role.admin} : 
+                               (${user.role == T(naitei.group5.workingspacebooking.entity.enums.UserRole).renter} ? #{user.role.renter} : 
+                               (${user.role == T(naitei.group5.workingspacebooking.entity.enums.UserRole).owner} ? #{user.role.owner} : #{user.role.pending.owner}))">
+                    Role
+                </span>
+            </td>
             <td>
                 <!-- Chỉ hiển thị khi role = pending_owner -->
                 <form th:if="${user.role.name() == 'pending_owner'}"
                       th:action="@{'/admin/users/' + ${user.id} + '/approve-owner'}"
                       method="post"
                       style="display:inline;">
-                    <button type="submit" class="btn btn-success btn-sm">Xác thực</button>
+                    <button type="submit" class="btn btn-success btn-sm" th:text="#{user.action.approve.owner}">Approve</button>
                 </form>
+                <span th:unless="${user.role.name() == 'pending_owner'}" class="text-muted">—</span>
             </td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(users)}">
+            <td colspan="5" class="text-center text-muted" th:text="#{user.table.empty}">No users found</td>
         </tr>
         </tbody>
     </table>

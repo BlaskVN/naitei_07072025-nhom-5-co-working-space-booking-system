@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import naitei.group5.workingspacebooking.dto.response.UserResponse;
 import naitei.group5.workingspacebooking.entity.enums.UserRole;
 import naitei.group5.workingspacebooking.service.AdminService;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-
 @RequiredArgsConstructor
 public class AdminUserController extends BaseAdminController {
 
     private final AdminService adminService;
+    private final MessageSource messageSource;
 
     @GetMapping("/users")
     public String getUserList(
@@ -45,9 +47,15 @@ public class AdminUserController extends BaseAdminController {
     public String approveOwner(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         try {
             adminService.approveOwner(id);
-            redirectAttributes.addFlashAttribute("successMessage", "Phê duyệt thành công và đã gửi email!");
+            String successMessage = messageSource.getMessage("user.approve.owner.success", 
+                                                            null, 
+                                                            LocaleContextHolder.getLocale());
+            redirectAttributes.addFlashAttribute("successMessage", successMessage);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            String errorMessage = messageSource.getMessage("user.approve.owner.error", 
+                                                         null, 
+                                                         LocaleContextHolder.getLocale());
+            redirectAttributes.addFlashAttribute("errorMessage", errorMessage + ": " + e.getMessage());
         }
         return "redirect:/admin/users";
     }
