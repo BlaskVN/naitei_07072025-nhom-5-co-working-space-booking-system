@@ -3,7 +3,6 @@ package naitei.group5.workingspacebooking.dto.request;
 import jakarta.validation.constraints.*;
 
 import lombok.*;
-import naitei.group5.workingspacebooking.entity.enums.UserRole;
 
 @Getter
 @Setter

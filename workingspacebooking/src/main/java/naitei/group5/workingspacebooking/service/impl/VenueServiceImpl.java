@@ -13,7 +13,6 @@ import naitei.group5.workingspacebooking.entity.User;
 import naitei.group5.workingspacebooking.entity.Venue;
 import naitei.group5.workingspacebooking.entity.VenueStyle;
 import naitei.group5.workingspacebooking.entity.enums.UserRole;
-import naitei.group5.workingspacebooking.entity.BookingDetail;
 import naitei.group5.workingspacebooking.exception.ResourceNotFoundException;
 import naitei.group5.workingspacebooking.exception.custom.*;
 import naitei.group5.workingspacebooking.repository.UserRepository;
@@ -194,9 +193,9 @@ public class VenueServiceImpl implements VenueService {
                 .orElseThrow(VenueNotFoundException::new);
 
         // 1. Lấy tất cả prices của venue
-        var prices = venue.getPrices().stream()
-                .map(ConverterDto::toPriceResponseDto)
-                .toList();
+        // var prices = venue.getPrices().stream()
+        //         .map(ConverterDto::toPriceResponseDto)
+        //         .toList();
 
         // 2. Lấy tất cả booking detail (booked hoặc pending)
         var busySlots = bookingDetailRepository.findByVenueId(venueId)

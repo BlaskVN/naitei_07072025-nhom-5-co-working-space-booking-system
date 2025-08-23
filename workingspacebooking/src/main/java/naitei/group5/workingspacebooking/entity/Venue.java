@@ -40,6 +40,7 @@ public class Venue {
     @Lob
     private String image;
 
+    @Builder.Default
     @Column(nullable = false)
     private Boolean deleted = Boolean.FALSE;
 

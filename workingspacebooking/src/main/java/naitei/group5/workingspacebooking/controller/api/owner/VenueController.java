@@ -3,7 +3,6 @@ package naitei.group5.workingspacebooking.controller.api.owner;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
-import naitei.group5.workingspacebooking.config.JwtAuthFilter;
 import naitei.group5.workingspacebooking.config.JwtUserDetails;
 import naitei.group5.workingspacebooking.dto.request.CreateVenueRequestDto;
 import naitei.group5.workingspacebooking.dto.request.FilterVenueRequestDto;

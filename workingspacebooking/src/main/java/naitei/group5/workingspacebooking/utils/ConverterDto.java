@@ -9,7 +9,6 @@ import naitei.group5.workingspacebooking.dto.response.TimeSlotResponseDto;
 import naitei.group5.workingspacebooking.dto.response.VenueDetailResponseDto;
 import naitei.group5.workingspacebooking.dto.response.VenueResponseDto;
 import naitei.group5.workingspacebooking.dto.request.UpdateVenueRequestDto;
-import naitei.group5.workingspacebooking.dto.response.*;
 import naitei.group5.workingspacebooking.entity.*;
 import naitei.group5.workingspacebooking.entity.enums.WeekDay;
 import naitei.group5.workingspacebooking.dto.response.VenueDetailRenterResponseDto;

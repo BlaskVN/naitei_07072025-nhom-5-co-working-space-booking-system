@@ -44,7 +44,10 @@ public final class VenueSpecs {
                 Join<Venue, VenueStyle> style = root.join("venueStyle", JoinType.LEFT);
                 String like = "%" + venueStyleName.trim().toLowerCase() + "%";
                 ps.add(cb.like(cb.lower(style.get("name")), like));
-                query.distinct(true);
+                
+                if (query != null) {
+                    query.distinct(true);
+                }
             }
             if (capacityMin != null) {
                 ps.add(cb.greaterThanOrEqualTo(root.get("capacity"), capacityMin));

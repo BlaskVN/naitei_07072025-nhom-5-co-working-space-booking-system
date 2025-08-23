@@ -54,7 +54,10 @@ public final class RenterVenueSpecs {
                     String like = "%" + venueStyleName.trim().toLowerCase() + "%";
                     ps.add(cb.like(cb.lower(styleJoin.get("name")), like));
                 }
-                query.distinct(true);
+
+                if (query != null) {
+                    query.distinct(true);
+                }
             }
 
             // capacity
@@ -86,7 +89,9 @@ public final class RenterVenueSpecs {
                     ps.add(inDays);
                 }
 
-                query.distinct(true);
+                if (query != null) {
+                    query.distinct(true);
+                }   
             }
 
             return cb.and(ps.toArray(new Predicate[0]));
