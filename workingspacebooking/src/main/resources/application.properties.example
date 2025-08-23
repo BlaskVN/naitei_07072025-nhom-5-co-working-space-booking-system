@@ -18,3 +18,8 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 app.jwt.secret=
 app.jwt.access-exp-ms=
 app.jwt.refresh-exp-ms=
+
+# i18n Configuration
+spring.messages.basename=i18n/messages
+spring.messages.encoding=UTF-8
+spring.messages.fallback-to-system-locale=false

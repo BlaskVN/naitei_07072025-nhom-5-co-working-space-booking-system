@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import naitei.group5.workingspacebooking.dto.request.FilterVenueRenterRequestDto;
 import naitei.group5.workingspacebooking.dto.response.*;
 import naitei.group5.workingspacebooking.specification.RenterVenueSpecs;
+import naitei.group5.workingspacebooking.specification.VenueSpecs;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import naitei.group5.workingspacebooking.dto.request.CreateVenueRequestDto;
@@ -21,11 +22,11 @@ import naitei.group5.workingspacebooking.repository.VenueStyleRepository;
 import naitei.group5.workingspacebooking.repository.BookingDetailRepository;
 import naitei.group5.workingspacebooking.service.VenueService;
 import naitei.group5.workingspacebooking.service.common.TimeSlotCalculator;
-import naitei.group5.workingspacebooking.specification.VenueSpecs;
 import naitei.group5.workingspacebooking.utils.ConverterDto;
 import naitei.group5.workingspacebooking.config.JwtUserDetails;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -241,6 +242,56 @@ public class VenueServiceImpl implements VenueService {
     
     private String getMessage(String key, Object... args) {
         return messageSource.getMessage(key, args, LocaleContextHolder.getLocale());
+    }
+
+    // ==== Admin use cases ====
+    @Override
+    public List<AdminVenueViewDto> adminListVenues(String name, String status, String sort) {
+        // Chuẩn hóa status
+        String normalizedStatus = null;
+        if (status != null && !status.isBlank()) {
+            String trimmed = status.trim().toLowerCase();
+            if ("unverified".equals(trimmed) || "verified".equals(trimmed) || "deleted".equals(trimmed)) {
+                normalizedStatus = trimmed;
+            }
+        }
+
+        // Chuẩn hóa sort
+        String normalizedSort = "name_asc";
+        if (sort != null && !sort.isBlank()) {
+            String trimmed = sort.trim().toLowerCase();
+            if ("name_asc".equals(trimmed) || "name_desc".equals(trimmed) || 
+                "capacity_asc".equals(trimmed) || "capacity_desc".equals(trimmed)) {
+                normalizedSort = trimmed;
+            }
+        }
+
+        // Build specification sử dụng VenueSpecs hiện có
+        var spec = VenueSpecs.byAdminFilter(name, normalizedStatus);
+
+        // Build sort object
+        Sort sortObject = buildSortObject(normalizedSort);
+
+        // Find all venues with specification and sort
+        List<Venue> venues = venueRepository.findAll(spec, sortObject);
+
+        // Map to AdminVenueViewDto sử dụng ConverterDto hiện có
+        return venues.stream()
+                .map(venue -> AdminVenueViewDto.from(
+                    ConverterDto.toVenueResponseDto(venue),
+                    venue.getOwner() != null ? venue.getOwner().getName() : null,
+                    venue.getDeleted()
+                ))
+                .toList();
+    }
+
+    private Sort buildSortObject(String sortParam) {
+        return switch (sortParam) {
+            case "name_desc" -> Sort.by(Sort.Direction.DESC, "name");
+            case "capacity_asc" -> Sort.by(Sort.Direction.ASC, "capacity");
+            case "capacity_desc" -> Sort.by(Sort.Direction.DESC, "capacity");
+            default -> Sort.by(Sort.Direction.ASC, "name");
+        };
     }
     
 }

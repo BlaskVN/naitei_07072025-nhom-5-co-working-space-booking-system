@@ -19,6 +19,11 @@
             Tạo báo cáo hệ thống
         </a>
 
+        <a class="btn btn-outline-light" th:href="@{/admin/venues}"
+           th:classappend="${currentUri == '/admin/venues'} ? ' active' : ''">
+            Quản lý co-working space
+        </a>
+
         <form th:action="@{/admin/logout}" method="post">
             <button type="submit" class="btn btn-outline-danger w-100">Đăng xuất</button>
         </form>

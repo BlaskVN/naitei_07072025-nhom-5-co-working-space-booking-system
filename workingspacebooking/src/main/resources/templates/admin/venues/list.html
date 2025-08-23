@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body th:with="pageTitle=#{venue.admin.list.title}">
+<div layout:fragment="content">
+    <h2 th:text="#{venue.admin.list.title}">Venue Management</h2>
+    <hr class="text-secondary">
+    
+    <!-- Filter Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" th:action="@{/admin/venues}">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="name" class="form-label" 
+                               th:text="#{venue.admin.filter.name}">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               th:value="${currentName}">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="status" class="form-label" 
+                               th:text="#{venue.admin.filter.status}">Status</label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="" 
+                                    th:selected="${currentStatus == null or currentStatus == ''}">
+                                All Status
+                            </option>
+                            <option value="unverified" 
+                                    th:selected="${currentStatus == 'unverified'}"
+                                    th:text="#{venue.status.unverified}">Unverified</option>
+                            <option value="verified" 
+                                    th:selected="${currentStatus == 'verified'}"
+                                    th:text="#{venue.status.verified}">Verified</option>
+                            <option value="deleted" 
+                                    th:selected="${currentStatus == 'deleted'}"
+                                    th:text="#{venue.status.deleted}">Deleted</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="sort" class="form-label" 
+                               th:text="#{venue.admin.filter.sort}">Sort</label>
+                        <select class="form-control" id="sort" name="sort">
+                            <option value="name_asc" 
+                                    th:selected="${currentSort == null or currentSort == '' or currentSort == 'name_asc'}"
+                                    th:text="#{venue.sort.name_asc}">Name A-Z</option>
+                            <option value="name_desc" 
+                                    th:selected="${currentSort == 'name_desc'}"
+                                    th:text="#{venue.sort.name_desc}">Name Z-A</option>
+                            <option value="capacity_asc" 
+                                    th:selected="${currentSort == 'capacity_asc'}"
+                                    th:text="#{venue.sort.capacity_asc}">Capacity Low-High</option>
+                            <option value="capacity_desc" 
+                                    th:selected="${currentSort == 'capacity_desc'}"
+                                    th:text="#{venue.sort.capacity_desc}">Capacity High-Low</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">&nbsp;</label>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <a th:href="@{/admin/venues}" class="btn btn-secondary">Reset</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Table -->
+    <table class="table table-striped table-light text-dark align-middle">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th th:text="#{common.name}">Name</th>
+                <th th:text="#{venue.column.owner}">Owner</th>
+                <th th:text="#{venue.column.capacity}">Capacity</th>
+                <th th:text="#{venue.column.location}">Location</th>
+                <th th:text="#{venue.column.status}">Status</th>
+                <th th:text="#{venue.column.verified}">Verified</th>
+                <th th:text="#{venue.column.deleted}">Deleted</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="venueView, iterStat : ${venues}">
+                <td th:text="${iterStat.count}">1</td>
+                <td th:text="${venueView.venue.name}">Venue Name</td>
+                <td th:text="${venueView.ownerName}">Owner Name</td>
+                <td th:text="${venueView.venue.capacity}">100</td>
+                <td th:text="${venueView.venue.location}">Location</td>
+                <td>
+                    <span th:if="${venueView.deleted}" 
+                          class="badge bg-danger" 
+                          th:text="#{venue.status.deleted}">Deleted</span>
+                    <span th:if="${!venueView.deleted and venueView.venue.verified}" 
+                          class="badge bg-success" 
+                          th:text="#{venue.status.verified}">Verified</span>
+                    <span th:if="${!venueView.deleted and !venueView.venue.verified}" 
+                          class="badge bg-warning text-dark" 
+                          th:text="#{venue.status.unverified}">Unverified</span>
+                </td>
+                <td>
+                    <span th:if="${venueView.venue.verified}" 
+                          class="badge bg-success">Yes</span>
+                    <span th:if="${!venueView.venue.verified}" 
+                          class="badge bg-secondary">No</span>
+                </td>
+                <td>
+                    <span th:if="${venueView.deleted}" 
+                          class="badge bg-danger">Yes</span>
+                    <span th:if="${!venueView.deleted}" 
+                          class="badge bg-secondary">No</span>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(venues)}">
+                <td colspan="8" class="text-center text-muted">No venues found</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

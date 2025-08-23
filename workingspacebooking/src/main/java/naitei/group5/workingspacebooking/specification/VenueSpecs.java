@@ -62,4 +62,37 @@ public final class VenueSpecs {
             return cb.and(ps.toArray(new Predicate[0]));
         };
     }
+
+    // Method cho admin để filter tất cả venue (bao gồm cả deleted)
+    public static Specification<Venue> byAdminFilter(
+            String name,
+            String status
+    ) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (name != null && !name.isBlank()) {
+                String like = "%" + name.trim().toLowerCase() + "%";
+                predicates.add(cb.like(cb.lower(root.get("name")), like));
+            }
+
+            if (status != null && !status.isBlank()) {
+                switch (status) {
+                    case "unverified":
+                        predicates.add(cb.equal(root.get("verified"), false));
+                        predicates.add(cb.equal(root.get("deleted"), false));
+                        break;
+                    case "verified":
+                        predicates.add(cb.equal(root.get("verified"), true));
+                        predicates.add(cb.equal(root.get("deleted"), false));
+                        break;
+                    case "deleted":
+                        predicates.add(cb.equal(root.get("deleted"), true));
+                        break;
+                }
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+    }
 }

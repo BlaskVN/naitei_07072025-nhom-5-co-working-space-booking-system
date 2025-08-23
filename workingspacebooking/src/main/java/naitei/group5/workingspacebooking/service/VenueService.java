@@ -5,6 +5,7 @@ import naitei.group5.workingspacebooking.dto.request.CreateVenueRequestDto;
 import naitei.group5.workingspacebooking.dto.request.FilterVenueRenterRequestDto;
 import naitei.group5.workingspacebooking.dto.request.FilterVenueRequestDto;
 import naitei.group5.workingspacebooking.dto.request.UpdateVenueRequestDto;
+import naitei.group5.workingspacebooking.dto.response.AdminVenueViewDto;
 import naitei.group5.workingspacebooking.dto.response.VenueDetailRenterResponseDto;
 import naitei.group5.workingspacebooking.dto.response.VenueDetailResponseDto;
 import naitei.group5.workingspacebooking.dto.response.VenueResponseDto;
@@ -35,5 +36,8 @@ public interface VenueService {
     VenueSoftDeleteResponseDto softDeleteVenue(Integer venueId, JwtUserDetails userDetails);
 
     VenueDetailRenterResponseDto getVenueDetail(Integer venueId);
+
+    // ==== Admin use cases ====
+    List<AdminVenueViewDto> adminListVenues(String name, String status, String sort);
 
 }
