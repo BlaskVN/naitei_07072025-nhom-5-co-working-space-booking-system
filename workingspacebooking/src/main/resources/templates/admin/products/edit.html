@@ -2,26 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Chỉnh sửa sản phẩm</title>
+    <title th:text="#{product.edit.title}">Chỉnh sửa sản phẩm</title>
 </head>
 
 <body>
     <!-- Sử dụng layout admin -->
-    <div th:replace="layouts/admin_layout :: layout(~{::section})">
+    <div th:replace="~{layouts/admin_layout :: layout(~{::section})}">
         <section>
-            <h2>Chỉnh sửa sản phẩm</h2>
+            <h2 th:text="#{product.edit.title}">Chỉnh sửa sản phẩm</h2>
             <!-- Ghi chú: Đây là form chỉnh sửa sản phẩm -->
             <form method="post" th:action="@{/admin/products/update}">
-                <label>ID:</label>
+                <label th:text="#{product.form.id}">ID:</label>
                 <input type="text" name="id" value="1" readonly><br><br>
 
-                <label>Tên sản phẩm:</label>
+                <label th:text="#{product.form.name}">Tên sản phẩm:</label>
                 <input type="text" name="name" value="Sản phẩm A"><br><br>
 
-                <label>Giá:</label>
+                <label th:text="#{product.form.price}">Giá:</label>
                 <input type="number" name="price" value="100000"><br><br>
 
-                <button type="submit">Lưu</button>
+                <button type="submit" th:text="#{common.save}">Lưu</button>
             </form>
         </section>
     </div>

@@ -6,16 +6,16 @@
 <head>
     <meta charset="UTF-8">
 </head>
-<body th:with="pageTitle='Dashboard'">
+<body th:with="pageTitle=#{dashboard.title}">
 <div layout:fragment="content">
-    <h2>Welcome, <span th:text="${userName}">Admin</span> 👋</h2>
+    <h2><span th:text="#{dashboard.welcome}">Welcome</span>, <span th:text="${userName}">Admin</span> 👋</h2>
     <hr class="text-secondary">
 
     <div class="row">
         <div class="col-md-4 mb-3">
             <div class="card text-dark shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Tổng số người dùng</h5>
+                    <h5 class="card-title" th:text="#{dashboard.total.users}">Tổng số người dùng</h5>
                     <p class="card-text display-6">123</p>
                 </div>
             </div>
@@ -24,7 +24,7 @@
         <div class="col-md-4 mb-3">
             <div class="card text-dark shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Báo cáo hệ thống</h5>
+                    <h5 class="card-title" th:text="#{dashboard.system.reports}">Báo cáo hệ thống</h5>
                     <p class="card-text display-6">8</p>
                 </div>
             </div>
@@ -33,14 +33,14 @@
         <div class="col-md-4 mb-3">
             <div class="card text-dark shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Thông tin khác</h5>
+                    <h5 class="card-title" th:text="#{dashboard.other.info}">Thông tin khác</h5>
                     <p class="card-text display-6">N/A</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <p class="mt-4">Hãy chọn menu bên trái để quản lý chi tiết.</p>
+    <p class="mt-4" th:text="#{dashboard.menu.instruction}">Hãy chọn menu bên trái để quản lý chi tiết.</p>
 </div>
 </body>
 </html>

@@ -26,7 +26,8 @@
                                th:text="#{venue.admin.filter.status}">Status</label>
                         <select class="form-control" id="status" name="status">
                             <option value="" 
-                                    th:selected="${currentStatus == null or currentStatus == ''}">
+                                    th:selected="${currentStatus == null or currentStatus == ''}"
+                                    th:text="#{venue.admin.filter.all.status}">
                                 All Status
                             </option>
                             <option value="unverified" 
@@ -61,8 +62,8 @@
                     <div class="col-md-2">
                         <label class="form-label">&nbsp;</label>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Filter</button>
-                            <a th:href="@{/admin/venues}" class="btn btn-secondary">Reset</a>
+                            <button type="submit" class="btn btn-primary" th:text="#{common.filter}">Filter</button>
+                            <a th:href="@{/admin/venues}" class="btn btn-secondary" th:text="#{common.reset}">Reset</a>
                         </div>
                     </div>
                 </div>
@@ -103,20 +104,20 @@
                           th:text="#{venue.status.unverified}">Unverified</span>
                 </td>
                 <td>
-                    <span th:if="${venueView.venue.verified}" 
-                          class="badge bg-success">Yes</span>
-                    <span th:if="${!venueView.venue.verified}" 
-                          class="badge bg-secondary">No</span>
+                    <span th:if="${venue.verified}" 
+                          class="badge bg-success" th:text="#{common.yes}">Yes</span>
+                    <span th:if="${!venue.verified}" 
+                          class="badge bg-secondary" th:text="#{common.no}">No</span>
                 </td>
                 <td>
-                    <span th:if="${venueView.deleted}" 
-                          class="badge bg-danger">Yes</span>
-                    <span th:if="${!venueView.deleted}" 
-                          class="badge bg-secondary">No</span>
+                    <span th:if="${venue.deleted}" 
+                          class="badge bg-danger" th:text="#{common.yes}">Yes</span>
+                    <span th:if="${!venue.deleted}" 
+                          class="badge bg-secondary" th:text="#{common.no}">No</span>
                 </td>
             </tr>
             <tr th:if="${#lists.isEmpty(venues)}">
-                <td colspan="8" class="text-center text-muted">No venues found</td>
+                <td colspan="8" class="text-center text-muted" th:text="#{venue.table.empty}">No venues found</td>
             </tr>
         </tbody>
     </table>

@@ -6,18 +6,18 @@
 <head>
     <meta charset="UTF-8">
 </head>
-<body th:with="pageTitle='Quản lý người dùng'">
+<body th:with="pageTitle=#{user.management.title}">
 <div layout:fragment="content">
-    <h2>Quản lý người dùng</h2>
+    <h2 th:text="#{user.list.title}">Quản lý người dùng</h2>
     <hr class="text-secondary">
 
     <table class="table table-striped table-light text-dark align-middle">
         <thead>
         <tr>
-            <th>#</th>
-            <th>Tên</th>
-            <th>Email</th>
-            <th>Role</th>
+            <th th:text="#{user.table.index}">#</th>
+            <th th:text="#{user.table.name}">Tên</th>
+            <th th:text="#{user.table.email}">Email</th>
+            <th th:text="#{user.table.role}">Role</th>
 
         </tr>
         </thead>

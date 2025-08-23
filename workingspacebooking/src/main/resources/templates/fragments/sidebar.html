@@ -1,31 +1,35 @@
 <!-- templates/fragments/sidebar.html -->
 <div th:fragment="sidebarFragment" class="sidebar flex-column p-3">
-    <h4 class="text-white">Admin Dashboard</h4>
+    <h4 class="text-white" th:text="#{sidebar.title}">Admin Dashboard</h4>
     <hr class="text-secondary">
 
     <div class="d-grid gap-2">
-        <a class="btn btn-outline-light" th:href="@{/admin/dashboard}"
-           th:classappend="${currentUri == '/admin/dashboard'} ? ' active' : ''">
+        <a class="btn btn-outline-light sidebar-nav-item" th:href="@{/admin/dashboard}"
+           data-nav="dashboard"
+           th:text="#{menu.dashboard}">
             Dashboard
         </a>
 
-        <a class="btn btn-outline-light" th:href="@{/admin/users}"
-           th:classappend="${currentUri == '/admin/users/user-list'} ? ' active' : ''">
+        <a class="btn btn-outline-light sidebar-nav-item" th:href="@{/admin/users}"
+           data-nav="users"
+           th:text="#{menu.user.management}">
             Quản lí người dùng
         </a>
 
-        <a class="btn btn-outline-light" th:href="@{/admin/notifications/new}"
-           th:classappend="${currentUri == '/admin/notifications/new'} ? ' active' : ''">
+        <a class="btn btn-outline-light sidebar-nav-item" th:href="@{/admin/notifications/new}"
+           data-nav="notifications"
+           th:text="#{menu.create.notification}">
             Tạo báo cáo hệ thống
         </a>
 
-        <a class="btn btn-outline-light" th:href="@{/admin/venues}"
-           th:classappend="${currentUri == '/admin/venues'} ? ' active' : ''">
+        <a class="btn btn-outline-light sidebar-nav-item" th:href="@{/admin/venues}"
+           data-nav="venues"
+           th:text="#{menu.venue.management}">
             Quản lý co-working space
         </a>
 
         <form th:action="@{/admin/logout}" method="post">
-            <button type="submit" class="btn btn-outline-danger w-100">Đăng xuất</button>
+            <button type="submit" class="btn btn-outline-danger w-100" th:text="#{menu.logout}">Đăng xuất</button>
         </form>
     </div>
 </div>
